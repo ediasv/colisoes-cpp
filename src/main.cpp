@@ -1,9 +1,8 @@
+#include "../include/Constants.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
-#define WIN_HEIGHT 700
-#define WIN_WIDTH 1200
 #define N_BALLS 1
 #define BALL_RADIUS 20.f
 
