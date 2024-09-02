@@ -1,13 +1,11 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Window/Window.hpp>
-#include <SFML/Window/WindowStyle.hpp>
+#include <vector>
 
 #define WIN_HEIGHT 700
 #define WIN_WIDTH 1200
+#define N_BALLS 1
+#define BALL_RADIUS 20.f
 
 int main() {
 
@@ -17,8 +15,15 @@ int main() {
   window.setVerticalSyncEnabled(true); // VSYNC
   window.setFramerateLimit(30); // call it once, after creating the window
 
-  sf::RectangleShape bola(sf::Vector2(50.f, 50.f));
-  bola.setPosition(WIN_WIDTH / 2.f, WIN_HEIGHT / 2.f);
+  std::vector<sf::CircleShape> balls;
+  // loop pra criar vetor de bolas;
+  for (int i = 0; i < N_BALLS; i++) {
+    sf::CircleShape ball;
+    ball.setRadius(BALL_RADIUS);
+    ball.setPosition(sf::Vector2(0.f, 0.f));
+    ball.setFillColor(sf::Color::White);
+    balls.push_back(ball);
+  }
 
   while (window.isOpen()) {
 
@@ -33,10 +38,13 @@ int main() {
     // clears the window
     window.clear(sf::Color::Black);
 
-    window.draw(bola);
+    for (sf::CircleShape ball : balls) {
+      window.draw(ball);
+    }
 
     // renders the display buffer
     window.display();
   }
+
   return 0;
 }
