@@ -11,4 +11,5 @@ private:
 
 public:
   Ball();
+  friend Ball &makeBalls(int nBalls);
 };

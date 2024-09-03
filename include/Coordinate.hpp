@@ -2,7 +2,7 @@
 
 class Coordinate {
 public:
-  float x;
-  float y;
+  float m_x;
+  float m_y;
   Coordinate(float x, float y);
 };
