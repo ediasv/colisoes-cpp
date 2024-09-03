@@ -37,3 +37,5 @@ void Ball::setPosition(Coordinate position) {
 Coordinate Ball::getPosition() { return this->m_position; }
 
 Coordinate Ball::getVelocity() { return this->m_velocity; }
+
+void oi();
