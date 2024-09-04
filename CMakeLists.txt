@@ -15,6 +15,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SFML)
 
 add_executable(main ./src/main.cpp)
+add_library(ball ./include/Ball.cpp ./include/Ball.hpp)
+add_library(constants ./include/Constants.hpp)
+add_library(coordinate ./include/Coordinate.cpp ./include/Coordinate.hpp)
 
-target_link_libraries(main PRIVATE sfml-graphics)
+target_link_libraries(main PRIVATE sfml-graphics ball constants coordinate)
 target_compile_features(main PRIVATE cxx_std_17)

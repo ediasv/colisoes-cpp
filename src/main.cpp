@@ -1,6 +1,7 @@
 #include "../include/Ball.hpp"
 #include "../include/Constants.hpp"
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 #include <vector>
 
 #define N_BALLS 5
@@ -14,7 +15,11 @@ int main() {
   window.setVerticalSyncEnabled(true); // VSYNC
   window.setFramerateLimit(30); // call it once, after creating the window
 
+  int i, j;
   std::vector<Ball> balls;
+  for (i = 0; i < N_BALLS; i++) {
+    balls.push_back(Ball());
+  }
 
   while (window.isOpen()) {
 
@@ -28,6 +33,10 @@ int main() {
 
     // clears the window
     window.clear(sf::Color::Black);
+
+    for (i = 0; i < N_BALLS; i++) {
+      window.draw(balls.at(i).m_shape);
+    }
 
     // renders the display buffer
     window.display();

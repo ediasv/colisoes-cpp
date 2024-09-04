@@ -4,12 +4,9 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Color.hpp>
 
-class Ball {
-private:
+struct Ball {
   Coordinate m_velocity;
   sf::CircleShape m_shape;
-
-public:
   Ball();
   friend Ball &makeBalls(int nBalls);
 };
