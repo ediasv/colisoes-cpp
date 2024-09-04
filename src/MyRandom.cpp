@@ -1,4 +1,4 @@
-#include "MyRandom.hpp"
+#include "../include/MyRandom.hpp"
 #include <random>
 
 float randFloat(int min, int max) {

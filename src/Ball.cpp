@@ -1,7 +1,7 @@
-#include "Ball.hpp"
-#include "Constants.hpp"
-#include "Coordinate.hpp"
-#include "MyRandom.hpp"
+#include "../include/Ball.hpp"
+#include "../include/Constants.hpp"
+#include "../include/Coordinate.hpp"
+#include "../include/MyRandom.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
 
 Ball::Ball() {
