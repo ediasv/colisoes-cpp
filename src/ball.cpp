@@ -1,41 +1,66 @@
 #include "../include/ball.hpp"
-#include <SFML/Graphics/Color.hpp>
-#include <cstdlib>
-#include <ctime>
+#include <random>
 
-Ball::Ball() {
-  srand(time(0));
-  m_vx = rand() % 16;
-  m_vy = rand() % 16;
-  // m_x = (rand() % (width - (int)radius + 1)) + radius;
-  // m_y = (rand() % (heigth - (int)radius + 1)) + radius;
-  m_x = 0;
-  m_y = 0;
-  shape.setRadius(radius);
-  shape.setPosition(m_x, m_y);
-  shape.setFillColor(sf::Color::White);
+Ball::Ball() : x(width / 2.f), y(heigth / 2.f), radius(5.f) {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<> dist(5, 20);
+
+  this->vx = dist(gen);
+  this->vy = dist(gen);
 }
 
 void Ball::move() {
-  m_x += m_vx;
-  m_y += m_vy;
+  this->x += this->vx;
+  this->y += this->vy;
 
   // check wall collision
-  if (m_x - radius <= 0) {
-    m_x = 0;
-    m_vx *= -1;
-  } else if (m_x + radius >= width) {
-    m_x = width - radius;
-    m_vx *= -1;
+  if (this->x - this->radius <= 0) {
+    this->x = 0;
+    this->vx *= -1;
+
+  } else if (this->x + this->radius >= width) {
+    this->x = width - this->radius;
+    this->vx *= -1;
   }
 
-  if (m_y - radius <= 0) {
-    m_y = 0;
-    m_vy *= -1;
-  } else if (m_y + radius >= heigth) {
-    m_y = heigth - radius;
-    m_vy *= -1;
-  }
+  if (this->y - this->radius <= 0) {
+    this->y = 0;
+    this->vy *= -1;
 
-  shape.setPosition(m_x, m_y);
+  } else if (this->y + this->radius >= heigth) {
+    this->y = heigth - this->radius;
+    this->vy *= -1;
+  }
+}
+
+sf::CircleShape Ball::draw() {
+  sf::CircleShape ball;
+  ball.setRadius(this->radius);
+  ball.setFillColor(sf::Color::White);
+  ball.setPosition(this->x, this->y);
+
+  return ball;
+}
+
+float sqDistance(Ball &firstBall, Ball &secondBall) {
+  float dx = firstBall.x - secondBall.x;
+  float dy = firstBall.y - secondBall.y;
+  return (dx * dx + dy * dy);
+}
+
+bool hasOverlap(std::vector<Ball> &balls, int &i, int &j) {
+  float sqRadius = balls.at(i).radius + balls.at(j).radius;
+  sqRadius *= sqRadius;
+  if (sqDistance(balls.at(i), balls.at(j)) <= sqRadius) {
+    return true;
+  }
+  return false;
+}
+
+BallVector::BallVector() {
+  Ball ball = Ball();
+  for (int i = 0; i < this->n_balls; i++) {
+    this->balls.push_back(ball);
+  }
 }
