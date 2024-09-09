@@ -4,7 +4,7 @@
 #include <vector>
 
 const unsigned short int width = 1200;
-const unsigned short int heigth = 700;
+const unsigned short int height = 700;
 const float cr = 0.6;
 
 class Ball {
@@ -19,7 +19,7 @@ public:
   sf::CircleShape draw();
 
   friend bool hasOverlap(std::vector<Ball> &balls, int i, int j);
-  friend void displace(Ball firstBall, Ball secondBall);
+  friend float displace(Ball &firstBall, Ball &secondBall);
   friend float sqDistance(Ball &firstBall, Ball &secondBall);
 };
 

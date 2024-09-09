@@ -1,15 +1,17 @@
 #include "../include/ball.hpp"
 #include <SFML/Graphics.hpp>
+#include <cmath>
 
 int main() {
 
-  sf::RenderWindow window(sf::VideoMode(width, heigth), "Particles",
+  sf::RenderWindow window(sf::VideoMode(width, height), "Particles",
                           sf::Style::Close | sf::Style::Titlebar);
   window.setVerticalSyncEnabled(true); // VSYNC
   window.setFramerateLimit(30); // call it once, after creating the window
   window.requestFocus();
 
-  BallVector balls = BallVector();
+  BallVector ballPoll = BallVector();
+  int i, j;
 
   while (window.isOpen()) {
 
@@ -24,9 +26,20 @@ int main() {
     // clears the window
     window.clear(sf::Color::Black);
 
-    for (int i = 0; i < balls.n_balls; i++) {
-      window.draw(balls.balls.at(i).draw());
-      balls.balls.at(i).move();
+    for (i = 0; i < ballPoll.n_balls; i++) {
+      window.draw(ballPoll.balls.at(i).draw());
+      ballPoll.balls.at(i).move();
+      for (j = i + 1; j < ballPoll.n_balls; j++) {
+        if (hasOverlap(ballPoll.balls, i, j)) {
+          Ball &firstBall = ballPoll.balls.at(i);
+          Ball &secondBall = ballPoll.balls.at(j);
+          float r = std::sqrt(sqDistance(firstBall, secondBall));
+          float qDisplace = displace(firstBall, secondBall);
+          // displace de acordo com a direção da posição
+          // muda as velocidades de acordo com a direção da colisão
+          continue;
+        }
+      }
     }
 
     // renders the display buffer

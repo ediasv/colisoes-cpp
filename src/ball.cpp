@@ -1,7 +1,8 @@
 #include "../include/ball.hpp"
+#include <cmath>
 #include <random>
 
-Ball::Ball() : x(width / 2.f), y(heigth / 2.f), radius(5.f) {
+Ball::Ball() : x(width / 2.f), y(height / 2.f), radius(5.f) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dist(-20, 20);
@@ -28,8 +29,8 @@ void Ball::move() {
     this->y = this->radius;
     this->vy *= -1 * cr;
 
-  } else if (this->y + this->radius >= heigth) {
-    this->y = heigth - this->radius;
+  } else if (this->y + this->radius >= height) {
+    this->y = height - this->radius;
     this->vy *= -1 * cr;
   }
 }
@@ -43,19 +44,24 @@ sf::CircleShape Ball::draw() {
   return ball;
 }
 
-float sqDistance(Ball &firstBall, Ball &secondBall) {
-  float dx = firstBall.x - secondBall.x;
-  float dy = firstBall.y - secondBall.y;
-  return (dx * dx + dy * dy);
-}
-
-bool hasOverlap(std::vector<Ball> &balls, int &i, int &j) {
+bool hasOverlap(std::vector<Ball> &balls, int i, int j) {
   float sqRadius = balls.at(i).radius + balls.at(j).radius;
   sqRadius *= sqRadius;
   if (sqDistance(balls.at(i), balls.at(j)) <= sqRadius) {
     return true;
   }
   return false;
+}
+
+float displace(Ball &firstBall, Ball &secondBall) {
+  return 0.5 * (sqrt(sqDistance(firstBall, secondBall)) - firstBall.radius -
+                secondBall.radius);
+}
+
+float sqDistance(Ball &firstBall, Ball &secondBall) {
+  float dx = firstBall.x - secondBall.x;
+  float dy = firstBall.y - secondBall.y;
+  return (dx * dx + dy * dy);
 }
 
 BallVector::BallVector() {
