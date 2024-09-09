@@ -5,6 +5,7 @@
 
 const unsigned short int width = 1200;
 const unsigned short int heigth = 700;
+const float cr = 0.6;
 
 class Ball {
 public:
@@ -24,7 +25,7 @@ public:
 
 class BallVector {
 public:
-  const short int n_balls = 5;
+  const short int n_balls = 100;
   std::vector<Ball> balls;
 
   BallVector();
