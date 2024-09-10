@@ -6,6 +6,7 @@
 const unsigned short int width = 1200;
 const unsigned short int height = 700;
 const float cr = 0.6;
+const float mass = 1;
 
 class Ball {
 public:

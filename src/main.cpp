@@ -1,6 +1,8 @@
 #include "../include/Ball.hpp"
+#include "../include/Vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <sys/types.h>
 
 int main() {
 
@@ -46,6 +48,22 @@ int main() {
           secondBall.y -= qDisplace * (firstBall.y - secondBall.y) / distance;
 
           // muda as velocidades de acordo com a direção da colisão
+          Vector p1(firstBall.x, firstBall.y);
+          Vector v1(firstBall.vx, firstBall.vy);
+
+          Vector p2(secondBall.x, secondBall.y);
+          Vector v2(secondBall.vx, secondBall.vy);
+
+          Vector r(subtract(p1, p2));
+
+          Vector v1n(projection(v1, r));
+          Vector v1t(projection(v1, v1n));
+
+          Vector v2n(projection(v2, r));
+          Vector v2t(projection(v2, v2n));
+
+          Vector numerador(
+              add(scalarProduct(v1, mass), scalarProduct(v2, mass)));
         }
       }
     }
