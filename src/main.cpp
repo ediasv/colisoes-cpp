@@ -1,4 +1,4 @@
-#include "../include/ball.hpp"
+#include "../include/Ball.hpp"
 #include <SFML/Graphics.hpp>
 #include <cmath>
 
@@ -31,13 +31,21 @@ int main() {
       ballPoll.balls.at(i).move();
       for (j = i + 1; j < ballPoll.n_balls; j++) {
         if (hasOverlap(ballPoll.balls, i, j)) {
+
           Ball &firstBall = ballPoll.balls.at(i);
           Ball &secondBall = ballPoll.balls.at(j);
-          float r = std::sqrt(sqDistance(firstBall, secondBall));
-          float qDisplace = displace(firstBall, secondBall);
+
           // displace de acordo com a direção da posição
+          float qDisplace = displace(firstBall, secondBall);
+          float distance = std::sqrt(sqDistance(firstBall, secondBall));
+
+          firstBall.x -= qDisplace * (firstBall.x - secondBall.x) / distance;
+          firstBall.y -= qDisplace * (firstBall.y - secondBall.y) / distance;
+
+          secondBall.x -= qDisplace * (firstBall.x - secondBall.x) / distance;
+          secondBall.y -= qDisplace * (firstBall.y - secondBall.y) / distance;
+
           // muda as velocidades de acordo com a direção da colisão
-          continue;
         }
       }
     }

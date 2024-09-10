@@ -1,4 +1,4 @@
-#include "../include/ball.hpp"
+#include "../include/Ball.hpp"
 #include <cmath>
 #include <random>
 
