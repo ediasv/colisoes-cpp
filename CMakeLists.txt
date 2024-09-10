@@ -16,7 +16,8 @@ fetchcontent_makeavailable(SFML)
 add_executable(main
 ./src/main.cpp
 ./src/Ball.cpp
-./src/Vector.cpp)
+./src/Vector.cpp
+./src/Point.cpp)
 
 target_include_directories(main PUBLIC ./include/)
 

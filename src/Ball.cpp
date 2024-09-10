@@ -2,35 +2,36 @@
 #include <cmath>
 #include <random>
 
-Ball::Ball() : x(width / 2.f), y(height / 2.f), radius(5.f) {
+Ball::Ball() : position(width / 2.f, width / 2.f), radius(5.f) {
   std::random_device rd;
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dist(-20, 20);
 
   this->velocity.x = dist(gen);
+
   this->velocity.y = dist(gen);
 }
 
 void Ball::move() {
-  this->x += this->velocity.x;
-  this->y += this->velocity.y;
+  this->position.x += this->velocity.x;
+  this->position.y += this->velocity.y;
 
   // check wall collision
-  if (this->x - this->radius <= 0) {
-    this->x = this->radius;
+  if (this->position.x - this->radius <= 0) {
+    this->position.x = this->radius;
     this->velocity.x *= -1 * cr;
 
-  } else if (this->x + this->radius >= width) {
-    this->x = width - this->radius;
+  } else if (this->position.x + this->radius >= width) {
+    this->position.x = width - this->radius;
     this->velocity.x *= -1 * cr;
   }
 
-  if (this->y - this->radius <= 0) {
-    this->y = this->radius;
+  if (this->position.y - this->radius <= 0) {
+    this->position.y = this->radius;
     this->velocity.y *= -1 * cr;
 
-  } else if (this->y + this->radius >= height) {
-    this->y = height - this->radius;
+  } else if (this->position.y + this->radius >= height) {
+    this->position.y = height - this->radius;
     this->velocity.y *= -1 * cr;
   }
 }
@@ -39,7 +40,7 @@ sf::CircleShape Ball::draw() {
   sf::CircleShape ball;
   ball.setRadius(this->radius);
   ball.setFillColor(sf::Color::White);
-  ball.setPosition(this->x, this->y);
+  ball.setPosition(this->position.x, this->position.y);
 
   return ball;
 }
@@ -59,8 +60,8 @@ float displace(Ball &firstBall, Ball &secondBall) {
 }
 
 float sqDistance(Ball &firstBall, Ball &secondBall) {
-  float dx = firstBall.x - secondBall.x;
-  float dy = firstBall.y - secondBall.y;
+  float dx = firstBall.position.x - secondBall.position.x;
+  float dy = firstBall.position.y - secondBall.position.y;
   return (dx * dx + dy * dy);
 }
 

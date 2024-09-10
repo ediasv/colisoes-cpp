@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Point.hpp"
 #include "Vector.hpp"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -11,7 +12,7 @@ const float cr = 0.6;
 class Ball {
 public:
   vec::Vector velocity;
-  float x, y;
+  Point position;
   float radius;
 
 public:
