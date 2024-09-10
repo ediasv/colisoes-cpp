@@ -7,31 +7,31 @@ Ball::Ball() : x(width / 2.f), y(height / 2.f), radius(5.f) {
   std::mt19937 gen(rd());
   std::uniform_real_distribution<> dist(-20, 20);
 
-  this->vx = dist(gen);
-  this->vy = dist(gen);
+  this->velocity.x = dist(gen);
+  this->velocity.y = dist(gen);
 }
 
 void Ball::move() {
-  this->x += this->vx;
-  this->y += this->vy;
+  this->x += this->velocity.x;
+  this->y += this->velocity.y;
 
   // check wall collision
   if (this->x - this->radius <= 0) {
     this->x = this->radius;
-    this->vx *= -1 * cr;
+    this->velocity.x *= -1 * cr;
 
   } else if (this->x + this->radius >= width) {
     this->x = width - this->radius;
-    this->vx *= -1 * cr;
+    this->velocity.x *= -1 * cr;
   }
 
   if (this->y - this->radius <= 0) {
     this->y = this->radius;
-    this->vy *= -1 * cr;
+    this->velocity.y *= -1 * cr;
 
   } else if (this->y + this->radius >= height) {
     this->y = height - this->radius;
-    this->vy *= -1 * cr;
+    this->velocity.y *= -1 * cr;
   }
 }
 

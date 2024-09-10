@@ -1,17 +1,21 @@
 #pragma once
 
-class Vector {
-public:
+namespace vec {
+
+struct Vector {
   float x;
   float y;
 
   Vector();
   Vector(float x, float y);
-
-  friend Vector projection(Vector &firstVec, Vector &secondVec);
-  friend float dot(Vector &firstVec, Vector &secondVec);
-  friend Vector add(Vector &firstVec, Vector &secondVec);
-  friend Vector subtract(Vector &firstVec, Vector &secondVec);
-  friend float norm(Vector &firstVec);
-  friend Vector scalarProduct(Vector &firstVec, float scalar);
+  Vector(int x, int y);
 };
+
+float dot(Vector &firstVec, Vector &secondVec);
+float norm(Vector &firstVec);
+Vector add(Vector &firstVec, Vector &secondVec);
+Vector subtract(Vector &firstVec, Vector &secondVec);
+Vector scalarProduct(Vector &firstVec, float scalar);
+Vector projection(Vector &firstVec, Vector &secondVec);
+
+} // namespace vec
