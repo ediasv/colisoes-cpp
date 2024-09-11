@@ -29,5 +29,5 @@ struct BallVector {
 float sqDistance(Ball &firstBall, Ball &secondBall);
 bool hasOverlap(std::vector<Ball> &balls, int i, int j);
 float qDisplace(Ball &firstBall, Ball &secondBall);
-vec::Vector displace(Ball &firstBall, Ball &secondBall);
+void displace(Ball &firstBall, Ball &secondBall);
 void colide(Ball &firstBall, Ball &secondBall);

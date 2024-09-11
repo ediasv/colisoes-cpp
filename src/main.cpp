@@ -13,6 +13,8 @@ int main() {
   BallVector ballPoll = BallVector();
   int i, j;
 
+  sf::Clock clock; // cria um relógio para contar o tempo
+
   while (window.isOpen()) {
 
     sf::Event event;
@@ -29,9 +31,15 @@ int main() {
     for (i = 0; i < ballPoll.n_balls; i++) {
       window.draw(ballPoll.balls.at(i).draw());
       ballPoll.balls.at(i).move();
-      for (j = i + 1; j < ballPoll.n_balls; j++) {
-        if (hasOverlap(ballPoll.balls, i, j)) {
-          colide(ballPoll.balls.at(i), ballPoll.balls.at(j));
+    }
+
+    // Verifica se já passaram 2 segundos
+    if (clock.getElapsedTime().asSeconds() > 2.0f) {
+      for (i = 0; i < ballPoll.n_balls; i++) {
+        for (j = i + 1; j < ballPoll.n_balls; j++) {
+          if (hasOverlap(ballPoll.balls, i, j)) {
+            colide(ballPoll.balls.at(i), ballPoll.balls.at(j));
+          }
         }
       }
     }
