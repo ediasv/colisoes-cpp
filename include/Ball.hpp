@@ -7,7 +7,7 @@
 
 const unsigned short int width = 1200;
 const unsigned short int height = 700;
-const float cr = 0.6;
+const float cr = 0.9;
 
 struct Ball {
   vec::Vector velocity;
@@ -20,7 +20,7 @@ struct Ball {
 };
 
 struct BallVector {
-  const short int n_balls = 30;
+  const short int n_balls = 300;
   std::vector<Ball> balls;
 
   BallVector();

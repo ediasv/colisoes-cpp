@@ -4,7 +4,7 @@
 #include <ctime>
 #include <sys/types.h>
 
-Ball::Ball() : radius(20.f) {
+Ball::Ball() : radius(4.f) {
 
   this->position.x = rand() % (int)(width - 2 * this->radius);
   this->position.y = rand() % (int)(height - 2 * this->radius);
@@ -97,7 +97,9 @@ void colide(Ball &ball, Ball &target) {
 
   // recompose ball velocity
   ball.velocity = vec::add(ballNormalV, ballTangentialV);
+  ball.velocity = vec::scalarProduct(ball.velocity, cr);
 
   // recompose target velocity
   target.velocity = vec::add(targetNormalV, targetTangentialV);
+  target.velocity = vec::scalarProduct(target.velocity, cr);
 }
