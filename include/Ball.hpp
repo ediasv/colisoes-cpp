@@ -20,7 +20,7 @@ struct Ball {
 };
 
 struct BallVector {
-  const short int n_balls = 20;
+  const short int n_balls = 30;
   std::vector<Ball> balls;
 
   BallVector();
