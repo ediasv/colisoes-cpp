@@ -12,6 +12,11 @@ float vec::norm(vec::Vector &firstVec) {
   return (std::sqrt(firstVec.x * firstVec.x + firstVec.y * firstVec.y));
 }
 
+void vec::normalize(Vector &vector) {
+  float normValue = norm(vector);
+  vector = vec::scalarProduct(vector, 1 / normValue);
+}
+
 vec::Vector vec::add(vec::Vector &firstVec, vec::Vector &secondVec) {
   return vec::Vector(firstVec.x + secondVec.x, firstVec.y + secondVec.y);
 }

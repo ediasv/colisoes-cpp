@@ -14,6 +14,7 @@ struct Vector {
 
 float dot(Vector &firstVec, Vector &secondVec);
 float norm(Vector &firstVec);
+void normalize(Vector &vector);
 Vector add(Vector &firstVec, Vector &secondVec);
 Vector subtract(Vector &firstVec, Vector &secondVec);
 Vector scalarProduct(Vector &firstVec, float scalar);

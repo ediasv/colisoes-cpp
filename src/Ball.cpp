@@ -1,14 +1,15 @@
 #include "../include/Ball.hpp"
 #include <cmath>
-#include <random>
+#include <cstdlib>
+#include <ctime>
 
-Ball::Ball() : position(width / 2.f, width / 2.f), radius(20.f) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dist(-20, 20);
+Ball::Ball() : radius(10.f) {
 
-  this->velocity.x = dist(gen);
-  this->velocity.y = dist(gen);
+  this->position.x = rand() % (int)(width - 2 * this->radius);
+  this->position.y = rand() % (int)(height - 2 * this->radius);
+
+  this->velocity.x = (rand() % 41) - 20;
+  this->velocity.y = (rand() % 41) - 20;
 }
 
 void Ball::move() {
@@ -51,30 +52,35 @@ BallVector::BallVector() {
   }
 }
 
-float sqDistance(Ball &firstBall, Ball &secondBall) {
-  float dx = firstBall.position.x - secondBall.position.x;
-  float dy = firstBall.position.y - secondBall.position.y;
-  return (dx * dx + dy * dy);
+float distance(Ball &ball, Ball &target) {
+  float dx = ball.position.x - target.position.x;
+  float dy = ball.position.y - target.position.y;
+  return sqrt(dx * dx + dy * dy);
 }
 
-bool hasOverlap(std::vector<Ball> &balls, int i, int j) {
-  float sqRadius = balls.at(i).radius + balls.at(j).radius;
-  sqRadius *= sqRadius;
-  if (sqDistance(balls.at(i), balls.at(j)) <= sqRadius) {
-    return true;
-  }
-  return false;
+bool hasOverlap(Ball &ball, Ball &target) {
+  return (distance(ball, target) <= (ball.radius + target.radius));
 }
 
-float qDisplace(Ball &firstBall, Ball &secondBall) {
-  return 0.5 * (sqrt(sqDistance(firstBall, secondBall)) - firstBall.radius -
-                secondBall.radius);
+float qOverlap(Ball &ball, Ball &target) {
+  return ball.radius + target.radius - distance(ball, target);
 }
 
-void displace(Ball &firstBall, Ball &secondBall) {
+void displace(Ball &ball, Ball &target) {
   // move both balls so that they only touch each other
+  float overlap = qOverlap(ball, target);
+
+  vec::Vector collisionVec(vec::subtract(ball.position, target.position));
+
+  vec::normalize(collisionVec);
+
+  ball.position.x += collisionVec.x * overlap * 0.5;
+  ball.position.y += collisionVec.y * overlap * 0.5;
+
+  target.position.x -= collisionVec.x * overlap * 0.5;
+  target.position.y -= collisionVec.y * overlap * 0.5;
 }
 
-void colide(Ball &firstBall, Ball &secondBall) {
+void colide(Ball &ball, Ball &target) {
   // change the velocity from each ball accordingly
 }
