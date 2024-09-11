@@ -35,7 +35,7 @@ int main() {
         }
 
         if (hasOverlap(ball, target)) {
-          displace(ball, target);
+          colide(ball, target);
         }
       }
 

@@ -2,8 +2,9 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <sys/types.h>
 
-Ball::Ball() : radius(10.f) {
+Ball::Ball() : radius(20.f) {
 
   this->position.x = rand() % (int)(width - 2 * this->radius);
   this->position.y = rand() % (int)(height - 2 * this->radius);
@@ -66,12 +67,13 @@ float qOverlap(Ball &ball, Ball &target) {
   return ball.radius + target.radius - distance(ball, target);
 }
 
-void displace(Ball &ball, Ball &target) {
-  // move both balls so that they only touch each other
+void displace(Ball &ball, Ball &target) {}
+// move both balls so that they only touch each other
+
+void colide(Ball &ball, Ball &target) {
+
   float overlap = qOverlap(ball, target);
-
   vec::Vector collisionVec(vec::subtract(ball.position, target.position));
-
   vec::normalize(collisionVec);
 
   ball.position.x += collisionVec.x * overlap * 0.5;
@@ -79,8 +81,23 @@ void displace(Ball &ball, Ball &target) {
 
   target.position.x -= collisionVec.x * overlap * 0.5;
   target.position.y -= collisionVec.y * overlap * 0.5;
-}
 
-void colide(Ball &ball, Ball &target) {
-  // change the velocity from each ball accordingly
+  // decompose ball velocity
+  vec::Vector ballNormalV(vec::projection(ball.velocity, collisionVec));
+  vec::Vector ballTangentialV(vec::subtract(ball.velocity, ballNormalV));
+
+  // decompose target velocity
+  vec::Vector targetNormalV(vec::projection(target.velocity, collisionVec));
+  vec::Vector targetTangentialV(vec::subtract(target.velocity, targetNormalV));
+
+  // change velocity on the normal axis
+  vec::Vector swap = ballNormalV;
+  ballNormalV = targetNormalV;
+  targetNormalV = swap;
+
+  // recompose ball velocity
+  ball.velocity = vec::add(ballNormalV, ballTangentialV);
+
+  // recompose target velocity
+  target.velocity = vec::add(targetNormalV, targetTangentialV);
 }
