@@ -9,26 +9,25 @@ const unsigned short int width = 1200;
 const unsigned short int height = 700;
 const float cr = 0.6;
 
-class Ball {
-public:
+struct Ball {
   vec::Vector velocity;
   Point position;
   float radius;
 
-public:
   Ball();
   void move();
   sf::CircleShape draw();
-
-  friend bool hasOverlap(std::vector<Ball> &balls, int i, int j);
-  friend float displace(Ball &firstBall, Ball &secondBall);
-  friend float sqDistance(Ball &firstBall, Ball &secondBall);
 };
 
-class BallVector {
-public:
-  const short int n_balls = 100;
+struct BallVector {
+  const short int n_balls = 20;
   std::vector<Ball> balls;
 
   BallVector();
 };
+
+float sqDistance(Ball &firstBall, Ball &secondBall);
+bool hasOverlap(std::vector<Ball> &balls, int i, int j);
+float qDisplace(Ball &firstBall, Ball &secondBall);
+vec::Vector displace(Ball &firstBall, Ball &secondBall);
+void colide(Ball &firstBall, Ball &secondBall);
