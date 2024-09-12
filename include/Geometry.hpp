@@ -14,8 +14,8 @@ struct Vec2 {
   Vec2 operator+(const Vec2 &otherVec2) const; // sum of vectors
   Vec2 operator-(const Vec2 &otherVec2) const; // subtraction of vectors
   Vec2 scalarProduct(float scalar) const;
-  float magnitude() const;
   Vec2 normalize() const;
+  float magnitude() const;
 };
 
 struct Point2 {

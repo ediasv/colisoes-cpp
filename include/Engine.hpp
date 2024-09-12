@@ -6,6 +6,7 @@
 
 namespace my {
 
+// Struct used to render circles created with geom::Circle()
 struct CircleRenderer {
   sf::CircleShape shape;
 
@@ -15,6 +16,7 @@ struct CircleRenderer {
   sf::CircleShape getShape() const;
 };
 
+// Container for Geometry.hpp shapes
 template <typename ShapeType> struct Shapes {
   std::vector<ShapeType> shapes;
 
