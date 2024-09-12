@@ -50,14 +50,14 @@ void Circle::move() { this->position = this->position + this->velocity; }
  * ======================== Function implementations ========================
  */
 
-float distance(const Point2 &firstPoint, const Point2 &secondPoint) {
+float geom::distance(const Point2 &firstPoint, const Point2 &secondPoint) {
   float dx = firstPoint.x - secondPoint.x;
   float dy = firstPoint.y - secondPoint.y;
 
   return (dx * dx + dy * dy);
 }
 
-bool hasCollision(const Circle &firstCircle, const Circle &secondCircle) {
+bool geom::hasCollision(const Circle &firstCircle, const Circle &secondCircle) {
   float radiiSum = firstCircle.radius + secondCircle.radius;
   float centersDistance =
       geom::distance(firstCircle.position, secondCircle.position);
@@ -65,12 +65,20 @@ bool hasCollision(const Circle &firstCircle, const Circle &secondCircle) {
   return centersDistance <= radiiSum;
 }
 
-void displace(Circle &firstCircle, Circle &secondCircle);
+void geom::displace(Circle &firstCircle, Circle &secondCircle);
 
-void solveCollision(Circle &firstCircle, Circle &secondCircle);
+void geom::solveCollision(Circle &firstCircle, Circle &secondCircle);
 
-float qOverlap(const Circle &firstCircle, const Circle &secondCircle);
+float geom::qOverlap(const Circle &firstCircle, const Circle &secondCircle) {
+  float radiiSum = firstCircle.radius + secondCircle.radius;
+  return radiiSum - geom::distance(firstCircle.position, secondCircle.position);
+}
 
-float dot(Vec2 &firstVec, Vec2 &secondVec);
+float geom::dot(const Vec2 &firstVec, const Vec2 &secondVec) {
+  return firstVec.x * secondVec.x + firstVec.y * secondVec.y;
+}
 
-Vec2 projection(const Vec2 &firstVec, const Vec2 &secondVec);
+Vec2 geom::projection(const Vec2 &firstVec, const Vec2 &secondVec) {
+  float mag = secondVec.magnitude();
+  return secondVec.scalarProduct(geom::dot(firstVec, secondVec) / (mag * mag));
+}

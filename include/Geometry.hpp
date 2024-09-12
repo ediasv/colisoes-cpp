@@ -66,7 +66,7 @@ void solveCollision(Circle &firstCircle, Circle &secondCircle);
 float qOverlap(const Circle &firstCircle, const Circle &secondCircle);
 
 // Returns the dot product between firstVec and secondVec
-float dot(Vec2 &firstVec, Vec2 &secondVec);
+float dot(const Vec2 &firstVec, const Vec2 &secondVec);
 
 /*
  * Returns the Vec2 that results of the projection
