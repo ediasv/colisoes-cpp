@@ -1,5 +1,11 @@
-#include "../include/Ball.hpp"
+#include "../include/Engine.hpp"
+#include "../include/Geometry.hpp"
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+const short int width = 900;
+const short int height = 1200;
+const int n_balls = 100;
 
 int main() {
   srand(time(0));
@@ -10,8 +16,8 @@ int main() {
   window.setFramerateLimit(30); // call it once, after creating the window
   window.requestFocus();
 
-  BallVector ballPoll = BallVector();
-  int i, j;
+  geom::Circles circles(n_balls);
+  my::Shapes<sf::CircleShape> shapeContainer(n_balls);
 
   while (window.isOpen()) {
 
@@ -26,8 +32,8 @@ int main() {
     // clears the window
     window.clear(sf::Color::Black);
 
-    for (Ball &ball : ballPoll.balls) {
-      window.draw(ball.draw());
+    for (geom::Circle &circle : CircleContainer) {
+      window.draw();
 
       for (Ball &target : ballPoll.balls) {
         if (&ball == &target) {

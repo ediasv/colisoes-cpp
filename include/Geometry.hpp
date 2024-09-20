@@ -41,10 +41,10 @@ struct Circle {
 };
 
 struct Circles {
-  const int n_balls;
-  std::vector<Circle> balls;
+  const int n_circles;
+  std::vector<Circle> circles;
 
-  Circles(int n_balls) : n_balls(n_balls) {}
+  Circles(int n_circles) : n_circles(n_circles) {}
 };
 
 // Returns the distance between firstPoint2 and secondPoint2
