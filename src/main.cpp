@@ -1,5 +1,11 @@
-#include "../include/Ball.hpp"
+#include "../include/Engine.hpp"
+#include "../include/Geometry.hpp"
 #include <SFML/Graphics.hpp>
+#include <vector>
+
+const int width = 1200;
+const int height = 900;
+const int n_particles = 20;
 
 int main() {
   srand(time(0));
@@ -10,8 +16,9 @@ int main() {
   window.setFramerateLimit(30); // call it once, after creating the window
   window.requestFocus();
 
-  BallVector ballPoll = BallVector();
-  int i, j;
+  my::Shapes<geom::Circle> particles(n_particles);
+
+  std::vector<my::CircleRenderer> particlesRenderer;
 
   while (window.isOpen()) {
 
@@ -25,22 +32,6 @@ int main() {
 
     // clears the window
     window.clear(sf::Color::Black);
-
-    for (Ball &ball : ballPoll.balls) {
-      window.draw(ball.draw());
-
-      for (Ball &target : ballPoll.balls) {
-        if (&ball == &target) {
-          continue;
-        }
-
-        if (hasOverlap(ball, target)) {
-          colide(ball, target);
-        }
-      }
-
-      ball.move();
-    }
 
     // renders the display buffer
     window.display();
