@@ -10,7 +10,9 @@ A project for the Physics 2 course, originally implemented in Python and now re-
 
 ## Analysis
 The output data is then used in analysis software (like gnuplot, scidavis, or origin) to fit the damped harmonic oscillator equation:
+
 $$x(t) = A e^{-\gamma t} \cos(\omega t + \phi)$$
+
 From the fitted parameters, the quality factor (Q-factor) of the system is determined.
 
 ## Technologies Used
