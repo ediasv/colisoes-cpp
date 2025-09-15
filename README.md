@@ -9,9 +9,6 @@ This project demonstrates basic 2D physics for many objects on screen. Each ball
 * **Wall Collisions:** Balls detect and bounce off the edges of the window.
 * **Ball-to-Ball Collisions:** The simulation includes detection and response for collisions between balls.
 
-![Demo Gif](https-github-com-user-repo-assets-collision-gif)
-*(Replace this with a link to your own screenshot or GIF)*
-
 ## Technologies Used
 * C++
 * SFML (Simple and Fast Multimedia Library)
